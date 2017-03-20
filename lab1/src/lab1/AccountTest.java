@@ -12,7 +12,7 @@ public class AccountTest {
 		
 		while(true){
 			int check = 0;
-			double cost = 0;
+			double money = 0;
 			System.out.println("1 : 예금");
 			System.out.println("2 : 출금");
 			check = input.nextInt();
@@ -23,12 +23,12 @@ public class AccountTest {
 				System.out.println("어떤 계좌에 입급할지 입력해주세요 : ");
 				check = input.nextInt();
 				System.out.println("금액을 입력하세요 : ");
-				cost = input.nextDouble();
+				money = input.nextDouble();
 				if(check == 1) {
-					account1.credit(cost);
+					account1.credit(money);
 				}
 				else {
-					account2.credit(cost);
+					account2.credit(money);
 				}
 			} 
 			if(check == 2){
@@ -37,25 +37,25 @@ public class AccountTest {
 				System.out.println("어떤 계좌에서 출금할지 입력해주세요 : ");
 				check = input.nextInt();
 				System.out.println("금액을 입력하세요 : ");
-				cost = input.nextDouble();
+				money = input.nextDouble();
 				if(check == 1){
-					if(cost>account1.showMoney()){
-						System.out.print("dedit amount exceeded account balance");
+					if(money>account1.getBalance()){
+						System.out.print("debit amount exceeded account balance");
 						continue;
 					} else {
-						account1.debit(cost);
+						account1.debit(money);
 					} 
 				} else {
-					if(cost>account2.showMoney()){
-						System.out.print("dedit amount exceeded account balance");
+					if(money>account2.getBalance()){
+						System.out.print("debit amount exceeded account balance");
 						continue;
 					} else {
-						account2.debit(cost);
+						account2.debit(money);
 					}
 				}
 			}
-			System.out.printf("Account 1 : %.2f\n", account1.showMoney());
-			System.out.printf("Account 2 : %.2f\n", account2.showMoney());
+			System.out.printf("Account 1 : %.2f\n", account1.getBalance());
+			System.out.printf("Account 2 : %.2f\n", account2.getBalance());
 		}
 	}
 }

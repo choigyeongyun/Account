@@ -2,7 +2,7 @@ package lab1;
 
 public class Account {
 	private double balance;
-	public double showMoney(){
+	public double getBalance(){
 		return balance;
 	}
 	public void debit(double m){
@@ -13,5 +13,8 @@ public class Account {
 	}
 	public Account(double m){
 		balance = m;
+	}
+	protected void setBalance(double b){
+		b = balance;
 	}
 }
