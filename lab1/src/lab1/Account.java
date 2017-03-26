@@ -1,7 +1,7 @@
 package lab1;
 
 public class Account {
-	protected double balance;
+	private double balance;
 	public double getBalance(){
 		return balance;
 	}
@@ -15,6 +15,6 @@ public class Account {
 		balance = m;
 	}
 	protected void setBalance(double b){
-		b = balance;
+		balance = b;
 	}
 }

@@ -9,23 +9,32 @@ public class CheckingAccount extends Account {
 		super(balance);
 	}
 	
+	public void setInterest(double i){
+		interest = i;
+	}
+	
+	public void setLoanInterest(double loan){
+		loan_interest = loan;
+	}
+	
+	public void setCreditLimit(double limit){
+		credit_limit = limit;
+	}
+	
 	@Override
 	public void debit(double m){
-		credit_limit = 500;
-		if (m >= credit_limit) {
-			System.out.print("debit amount exceeded account balance");
-		} else {
-			balance -= m;
+		if (getBalance()-m<-credit_limit) {
+			System.out.print("credit_limit amount exceeded account balance");
+		} else if(getBalance()-m>=-credit_limit){
+			setBalance(getBalance()-m);
 		}
 	}
 	
-	public void nextMonth(double b){
-		interest = 1;
-		loan_interest = 7;
-		if (b >= 0){
-			b += b * interest/100;
+	public void nextMonth(){
+		if (getBalance()>= 0){
+			setBalance(getBalance() * (1+interest/100));
 		} else {
-			b -= b * loan_interest/100;
+			setBalance(getBalance() * (1-loan_interest/100));
 		}
 	}
 

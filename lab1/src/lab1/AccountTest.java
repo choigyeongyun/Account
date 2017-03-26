@@ -6,11 +6,9 @@ public class AccountTest {
 	public static void main(String[] argc){
 		Scanner input = new Scanner(System.in);
 		System.out.print("Account1 : $");	
-		Account account1 = new Account(input.nextDouble());
+		CheckingAccount account1 = new CheckingAccount(input.nextDouble());
 		System.out.print("Account2 : $");
-		Account account2 = new Account(input.nextDouble());
-		CheckingAccount caccount1 = new CheckingAccount(account1.getBalance());
-		CheckingAccount caccount2 = new CheckingAccount(account2.getBalance());
+		CheckingAccount account2 = new CheckingAccount(input.nextDouble());
 		
 		while(true){
 			int check1 = 0;
@@ -42,33 +40,27 @@ public class AccountTest {
 				check2 = input.nextInt();
 				System.out.println("금액을 입력하세요 : ");
 				money = input.nextDouble();
-				//double credit_limit = 500;
+				account1.setCreditLimit(500);
+				account2.setCreditLimit(500);
 				if(check2 == 1){
-					/*if(money > credit_limit){
-						System.out.print("debit amount exceeded account balance\n");
-						continue;
-					} else {
-						account1.debit(money);
-						caccount1.debit(money);
-					}*/
-					caccount1.debit(money);
+					account1.debit(money);
 				} else {
-					/*if(money>account2.getBalance()){
-						System.out.print("debit amount exceeded account balance\n");
-						continue;
-					} else {
-						account2.debit(money);
-						caccount2.debit(money);
-					}*/
-					caccount2.debit(money);
+					account2.debit(money);
 				}
 			}
 			System.out.printf("Account 1 : %.2f\n", account1.getBalance());
 			System.out.printf("Account 2 : %.2f\n\n", account2.getBalance());
 			
+			account1.setInterest(1);
+			account2.setInterest(1);
+			account1.setLoanInterest(7);
+			account2.setLoanInterest(7);
+			account1.nextMonth();
+			account2.nextMonth();
+			
 			System.out.println("next month!");
-			System.out.printf("Account 1 : %.2f\n", caccount1.getBalance());
-			System.out.printf("Account 2 : %.2f\n\n", caccount2.getBalance());
+			System.out.printf("Account 1 : %.2f\n", account1.getBalance());
+			System.out.printf("Account 2 : %.2f\n\n", account2.getBalance());
 		}
 	}
 }
