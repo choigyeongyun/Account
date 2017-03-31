@@ -11,29 +11,32 @@ public class SavingAccount extends Account {
 	
 	@Override
 	public void debit (double m){
+		double a = getBalance();
 		if (month <= 12){
 			System.out.println("아직 출금할 수 없습니다.");
 		} else {
-			setBalance(getBalance()-m);
+			a = a - m;
+			setBalance(a);
 		}
 	}
 	
 	@Override
 	public double getWithdrawableAccount() {
-		if (month > 12){
-			setBalance(passTime(month));
+		double a = getBalance();
+		if(month<12){
+			a = 0;
+		} else {
+			return a;
 		}
-		return setBalance(passTime(month));
+		return a;
 	}
-
+	
 	@Override
 	public double passTime(int t) {
-		month =+ t;
+		month += t;
 		double a = getBalance();
-		if(month <= 12){
-			if (a >= 0){
-				a += a * interest * t;
-			}
+		if(month == 12){
+			a = a * Math.pow(1+interest, 12);
 		}
 		setBalance(a);
 		return a;

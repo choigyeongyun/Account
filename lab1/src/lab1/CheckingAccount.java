@@ -5,6 +5,7 @@ public class CheckingAccount extends Account {
 	private double interest;
 	private double loan_interest;
 	
+	
 	CheckingAccount(double balance, double creditLimit, double interest, double loanInterest){
 		super(balance);
 		credit_limit = creditLimit;
@@ -14,10 +15,11 @@ public class CheckingAccount extends Account {
 		
 	@Override
 	public void debit(double m){
-		if (getBalance()-m < -credit_limit) {
+		double a = getBalance();
+		if (a - m < -credit_limit) {
 			System.out.print("credit limit amount exceeded account balance");
-		} else if(getBalance()-m >= -credit_limit){
-			setBalance(getBalance()-m);
+		} else if(a - m >= -credit_limit){
+			setBalance(a - m);
 		}
 	}
 	
@@ -43,10 +45,21 @@ public class CheckingAccount extends Account {
 	
 	@Override
 	public double getWithdrawableAccount(){
-		return getBalance() + credit_limit;
+		double b = getBalance() + credit_limit;
+		if(b > 0){
+			return b;
+		} else {
+			b = 0;
+			return b; 
+		}
 	}
 	
-	/*public boolean isBankrupted(){
-		
-	}*/
+	protected boolean isBankrupted(){
+		double c = getWithdrawableAccount();
+		if(c == 0){
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
