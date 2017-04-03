@@ -1,6 +1,6 @@
 package lab1;
 
-public abstract class Account {
+public abstract class Account implements Valuable{
 	private double balance;
 	public double getBalance(){
 		return balance;
