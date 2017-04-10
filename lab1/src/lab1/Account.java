@@ -6,16 +6,16 @@ public abstract class Account implements Valuable{
 		return balance;
 	}
 	
-	public void debit(double m){
-		balance -= m;
+	public void debit(double amount) throws Exception{
+		balance -= amount;
 	}
 	
-	public void credit(double m){
-		balance += m;
+	public void credit(double amount){
+		balance += amount;
 	}
 	
-	public Account(double m){
-		balance = m;
+	public Account(double amount){
+		balance = amount;
 	}
 	
 	protected double setBalance(double b){

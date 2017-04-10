@@ -10,12 +10,14 @@ public class SavingAccount extends Account {
 	}
 	
 	@Override
-	public void debit (double m){
+	public void debit (double amount) throws Exception{
 		double a = getBalance();
 		if (month <= 12){
-			System.out.println("아직 출금할 수 없습니다.");
-		} else {
-			a = a - m;
+			throw new Exception("아직 출금할 수 없습니다.");
+		}else if(amount < 0){
+			throw new Exception("음수 입력!");
+		}else{
+			a = a - amount;
 			setBalance(a);
 		}
 	}

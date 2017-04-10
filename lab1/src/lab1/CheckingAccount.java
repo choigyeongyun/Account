@@ -14,14 +14,17 @@ public class CheckingAccount extends Account {
 	}
 		
 	@Override
-	public void debit(double m){
+	public void debit(double amount) throws Exception{
 		double a = getBalance();
-		if (a - m < -credit_limit) {
-			System.out.print("credit limit amount exceeded account balance");
-		} else if(a - m >= -credit_limit){
-			setBalance(a - m);
+		if (a - amount < -credit_limit) {
+			throw new Exception("Debit amount exceeded account balance");
+		}if(amount < 0){
+			throw new Exception("음수 입력!");
+		}else if(a - amount >= -credit_limit){
+			setBalance(a - amount);
 		}
 	}
+
 	
 	public void nextMonth(){
 		if (getBalance()>= 0){
