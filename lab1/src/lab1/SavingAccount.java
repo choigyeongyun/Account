@@ -3,6 +3,7 @@ package lab1;
 public class SavingAccount extends Account {
 	private double interest;
 	private int month;
+	//private double value;
 	
 	SavingAccount(double balance, double interest){
 		super(balance);
@@ -39,18 +40,40 @@ public class SavingAccount extends Account {
 		double a = getBalance();
 		if(month == 12){
 			a = a * Math.pow(1+interest, 12);
+			setBalance(a);
+			a = setBalance(a);
 		}
-		setBalance(a);
+		return a;
+		
+	}
+	
+	public double passTime() {
+		month += 1;
+		double a = getBalance();
+		a = a * Math.pow(1+interest, 1);
+		if(month == 12){
+			a = a * Math.pow(1+interest, 12);
+			setBalance(a);
+		}
 		return a;
 	}
 	
-	public double EstimateValue(int month){
+	public double estimateValue(int month){
 		double a = getBalance();
 		this.month += month;
 		if(month > 0){
 			a = a * Math.pow(1+interest, month);
 		}
-		setBalance(a);
+		//setBalance(value);
+		return a;
+	}
+	
+	public double estimateValue(){
+		double a = getBalance();
+
+		a = a * Math.pow(1+interest, 1);
+		
+		//setBalance(value);
 		return a;
 	}
 	

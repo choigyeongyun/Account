@@ -9,7 +9,11 @@ public class Human implements Valuable{
 		this.age = age;
 	}
 	
-	public double EstimateValue(int month){
+	public double estimateValue(int month){
+		return Double.POSITIVE_INFINITY;
+	}
+	
+	public double estimateValue(){
 		return Double.POSITIVE_INFINITY;
 	}
 	

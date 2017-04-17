@@ -3,18 +3,23 @@ package lab1;
 public class Car implements Valuable{
 	String name;
 	double price;
+	private double value;
 	
 	public Car(String name, double price){
 		this.name = name;
 		this.price = price;
 	}
 	
-	public double EstimateValue(int month){
-		price = price * 0.8;
+	public double estimateValue(int month){
+		value = price * 0.8 * Math.pow(0.99, month);
 		
-		price = price * Math.pow(0.99, month);
+		return value;
+	}
+	
+	public double estimateValue(){
+		value = price * 0.8 * Math.pow(0.99, 1);
 		
-		return price;
+		return value;
 	}
 	
 	public String toString(){

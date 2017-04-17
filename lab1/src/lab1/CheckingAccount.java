@@ -46,6 +46,17 @@ public class CheckingAccount extends Account {
 		return a;
 	}
 	
+	public double passTime(){
+		double a = getBalance();
+		if (a >= 0){
+			a += a * interest * 1;
+		} else {
+			a += a * loan_interest * 1;
+		}
+		setBalance(a);
+		return a;
+	}
+	
 	@Override
 	public double getWithdrawableAccount(){
 		double b = getBalance() + credit_limit;
@@ -60,18 +71,26 @@ public class CheckingAccount extends Account {
 	protected boolean isBankrupted(){
 		double c = getWithdrawableAccount();
 		if(c == 0){
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 	
-	public double EstimateValue(int month){
+	public double estimateValue(int month){
 		double a = getBalance();
 		if (a >= 0){
 			a += a * interest * month;
 		}
 		setBalance(a);
+		return a;
+	}
+	
+	public double estimateValue(){
+		double a = getBalance();
+		if (a >= 0){
+			a += a * interest * 1;
+		}
 		return a;
 	}
 	
