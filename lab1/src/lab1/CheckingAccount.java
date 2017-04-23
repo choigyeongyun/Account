@@ -1,100 +1,111 @@
 package lab1;
 
 public class CheckingAccount extends Account {
-	private double credit_limit;
+	private double creditLimit;
 	private double interest;
-	private double loan_interest;
-	
+	private double loanInterest;
+	private int month;
 	
 	CheckingAccount(double balance, double creditLimit, double interest, double loanInterest){
 		super(balance);
-		credit_limit = creditLimit;
+		this.creditLimit = creditLimit;
 		this.interest = interest;
-		loan_interest = loanInterest;
+		this.loanInterest = loanInterest;
+		month = 0;
 	}
-		
+	
 	@Override
-	public void debit(double amount) throws Exception{
+	public void debit(double money) throws Exception{
 		double a = getBalance();
-		if (a - amount < -credit_limit) {
-			throw new Exception("Debit amount exceeded account balance");
-		}if(amount < 0){
-			throw new Exception("음수 입력!");
-		}else if(a - amount >= -credit_limit){
-			setBalance(a - amount);
+		if(money < 0) throw new Exception("음수입력!");
+		if(a - money < -creditLimit) throw new Exception("Debit amount exceeded account balance.");
+		else{
+			a = a - money;
+			setBalance(a);
 		}
 	}
-
 	
 	public void nextMonth(){
-		if (getBalance()>= 0){
-			setBalance(getBalance() * (1+interest));
-		} else {
-			setBalance(getBalance() * (1-loan_interest));
-		}
-	}
-	
-	@Override
-	public double passTime(int t){
 		double a = getBalance();
-		if (a >= 0){
-			a += a * interest * t;
-		} else {
-			a += a * loan_interest * t;
+		
+		if(a >= 0){
+			a += a*interest;
+			setBalance(a);
+		} else{
+			a += a*loanInterest;
+			setBalance(a);
 		}
-		setBalance(a);
-		return a;
-	}
-	
-	public double passTime(){
-		double a = getBalance();
-		if (a >= 0){
-			a += a * interest * 1;
-		} else {
-			a += a * loan_interest * 1;
-		}
-		setBalance(a);
-		return a;
 	}
 	
 	@Override
 	public double getWithdrawableAccount(){
-		double b = getBalance() + credit_limit;
-		if(b > 0){
-			return b;
-		} else {
-			b = 0;
-			return b; 
+		double a = getBalance();
+		if(a + creditLimit < 0){
+			return 0;
+		} else{
+			return a + creditLimit;
 		}
 	}
 	
-	protected boolean isBankrupted(){
-		double c = getWithdrawableAccount();
-		if(c == 0){
+	@Override
+	public double passTime(int m){
+		month += m;
+		double a = getBalance();
+		if(a > 0){
+			a += a * interest * m;
+			setBalance(a);
+		} else{
+			a += a * loanInterest * m;
+			setBalance(a);
+		}
+		return a;
+	}
+	
+	@Override
+	public double passTime(){
+		month += 1;
+		double a = getBalance();
+		if(a > 0){
+			a += a * interest;
+			setBalance(a);
+		} else{
+			a += a * loanInterest;
+			setBalance(a);
+		}
+		return a;
+	}
+	
+	public boolean isBankrupted(){
+		if(getWithdrawableAccount() <= 0){
 			return true;
-		} else {
+		} else{
 			return false;
 		}
 	}
 	
-	public double estimateValue(int month){
+	@Override
+	public double estimateValue(int m){
 		double a = getBalance();
-		if (a >= 0){
-			a += a * interest * month;
+		if(a > 0){
+			a += a * interest * m;
+		} else{
+			a += a * loanInterest * m;
 		}
-		setBalance(a);
 		return a;
 	}
 	
+	@Override
 	public double estimateValue(){
 		double a = getBalance();
-		if (a >= 0){
-			a += a * interest * 1;
+		if(a > 0){
+			a += a * interest;
+		} else{
+			a += a * loanInterest;
 		}
 		return a;
 	}
 	
 	public String toString(){
-		return String.format("CheckingAccount_Balance : %.2f", getBalance());
+		return String.format("CheckingAccount Balance : %.2f", getBalance());
 	}
 }
