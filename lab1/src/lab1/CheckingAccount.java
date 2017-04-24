@@ -4,14 +4,12 @@ public class CheckingAccount extends Account {
 	private double creditLimit;
 	private double interest;
 	private double loanInterest;
-	private int month;
 	
 	CheckingAccount(double balance, double creditLimit, double interest, double loanInterest){
 		super(balance);
 		this.creditLimit = creditLimit;
 		this.interest = interest;
 		this.loanInterest = loanInterest;
-		month = 0;
 	}
 	
 	@Override
